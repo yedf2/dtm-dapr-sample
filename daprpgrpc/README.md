@@ -1,4 +1,4 @@
-# sample for dtm to call normal http service deployed by dapr
+# sample for dtm to call normal grpc service deployed by dapr
 
 ## start dtm
 ``` bash
@@ -8,5 +8,5 @@ MICRO_SERVICE_DRIVER=dtm-driver-dapr dapr run --app-id dtm --app-protocol grpc -
 
 ## run sample
 ``` bash
-dapr run --app-id app-grpc --app-protocol grpc --app-port 8084 go run main.go
+dapr run --app-id app-pgrpc --app-protocol grpc --app-port 8083 go run main.go
 ```

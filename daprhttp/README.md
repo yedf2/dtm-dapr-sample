@@ -8,5 +8,5 @@ MICRO_SERVICE_DRIVER=dtm-driver-dapr dapr run --app-id dtm --app-protocol http -
 
 ## run sample
 ``` bash
-dapr run --app-id app-phttp --app-protocol http --app-port 8081 go run main.go
+dapr run --app-id app-http --app-protocol http --app-port 8082 go run main.go
 ```
