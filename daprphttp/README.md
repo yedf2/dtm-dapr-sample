@@ -3,7 +3,7 @@
 ## start dtm
 ``` bash
 git clone github.com/dtm-labs/dtm && cd dtm
-MICRO_SERVICE_DRIVER=dtm-driver-dapr dapr run --app-id dtm --app-protocol http --app-port 36789 -- go run main.go
+MICRO_SERVICE_DRIVER=dtm-driver-dapr dapr run --app-id dtm --app-protocol http --app-port 36789 -- go run main.go -d
 ```
 
 ## run sample

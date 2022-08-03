@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dtm-labs/client/dtmcli"
+	"github.com/dtm-labs/client/dtmcli/logger"
 	daprdriver "github.com/dtm-labs/dtmdriver-dapr"
 
 	"github.com/gin-gonic/gin"
@@ -30,7 +31,8 @@ func startSvr() {
 	qsAddRoute(app)
 	log.Printf("quick start examples listening at %d", qsBusiPort)
 	go func() {
-		_ = app.Run(fmt.Sprintf(":%d", qsBusiPort))
+		err := app.Run(fmt.Sprintf(":%d", qsBusiPort))
+		logger.FatalIfError(err)
 	}()
 	time.Sleep(100 * time.Millisecond)
 }
@@ -57,7 +59,7 @@ func qsAddRoute(app *gin.Engine) {
 
 var dtmServer = daprdriver.AddrForProxiedHTTP("dtm", "/api/dtmsvr")
 
-func finishRequest() string {
+func finishRequest() {
 	req := &gin.H{"amount": 30} // load of micro-service
 	// DtmServer is the url of dtm
 	saga := dtmcli.NewSaga(dtmServer, shortuuid.New()).
@@ -68,9 +70,5 @@ func finishRequest() string {
 	// submit the created saga transaction，dtm ensures all sub-transactions either complete or get revoked
 	saga.WaitResult = true
 	err := saga.Submit()
-
-	if err != nil {
-		panic(err)
-	}
-	return saga.Gid
+	logger.FatalIfError(err)
 }
